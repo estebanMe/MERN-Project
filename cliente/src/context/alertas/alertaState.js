@@ -14,7 +14,7 @@ const AlertaState = props => {
     //Funciones 
     const mostrarAlerta = (msg, categoria) => {
         dispatch({
-            type:MOSTRAR_ALERTA,
+            type: MOSTRAR_ALERTA,
             payload: {
                 msg,
                 categoria

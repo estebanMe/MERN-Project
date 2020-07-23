@@ -11,7 +11,6 @@ const Login = () => {
 
 
     //extraer de usuario
-
     const {email, password} = usuario;
 
     const onChange = e => {

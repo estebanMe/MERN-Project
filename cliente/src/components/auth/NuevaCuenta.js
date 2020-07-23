@@ -5,8 +5,9 @@ import AlertaContext from '../../context/alertas/alertaContext'
 const NuevaCuenta = () => {
 
     // extraer los valores del context
-    const alertaContext = useContext()
-
+    const alertaContext = useContext(AlertaContext);
+    const {alerta, mostrarAlerta } = alertaContext;
+    
     const [usuario, guardarUsuario] = useState({
         nombre: '',
         email: '',
@@ -31,14 +32,31 @@ const NuevaCuenta = () => {
     const onSubmit = e => {
         e.preventDefault();
 
-
         // Validar que no este vacio
+        if(nombre.trim() === '' ||
+         email.trim() === '' ||
+         password.trim() === '' ||
+         confirmar.trim() === ''){
+            
+           mostrarAlerta('Todos los campos son obligatorios', 'alerta-error');
+           return;
+         }
 
         // Password minimo de 6 caracteres
+          if( password.length < 6 ){
+             mostrarAlerta('El password debe ser de al menos 6 caracteres', 'alerta-error');
+             return;
+          }
 
-        // Los password iguales
+          // Los password iguales
+          if(password !== confirmar){
+            mostrarAlerta('Los passwords no son iguales', 'alerta-error');
+            return;
+          }
 
-        // Pasarlo al action.
+
+          // Pasarlo al action.
+          
     }
 
     
@@ -47,7 +65,7 @@ const NuevaCuenta = () => {
         <div className="form-usuario">
             <div className="contenedor-form sombra-dark">
                  <h1>Obtener una cuenta</h1>
-
+                 { alerta ? (<div className={`alerta ${alerta.categoria}`}> {alerta.msg} </div>) : null }
                 <form 
                   onSubmit={onSubmit}
                 >
